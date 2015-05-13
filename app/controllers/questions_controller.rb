@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  before_action :find_question, only: [:show]
+
   def index
     @questions = Question.all
   end
@@ -16,5 +18,11 @@ class QuestionsController < ApplicationController
   end
 
   def update
+  end
+
+  private
+
+  def find_question
+    @question = Question.find(params[:id])
   end
 end

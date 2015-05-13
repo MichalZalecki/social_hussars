@@ -1,3 +1,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "devise_bootstrap_views";
+
+.question {
+  border-bottom: 1px solid #e7e7e7;
+}
