@@ -1,6 +1,6 @@
 == SocialHussars
 
-Inspired by this {challenge application}(https://github.com/hussar-academy/challenge_app).
+Inspired by this {challenge application}[https://github.com/hussar-academy/challenge_app].
 
 === Doubts
 
