@@ -1,5 +1,7 @@
 class QuestionsController < ApplicationController
-  before_action :find_question, only: [:show]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :find_question, only: [:show, :edit]
+  before_action :question_owner!, only: [:edit]
 
   def index
     @questions = Question.all
@@ -9,6 +11,7 @@ class QuestionsController < ApplicationController
   end
 
   def new
+    @question = Question.new
   end
 
   def create
@@ -21,6 +24,10 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def question_owner!
+    redirect_to root_path unless current_user == @question.user
+  end
 
   def find_question
     @question = Question.find(params[:id])
