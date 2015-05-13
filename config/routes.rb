@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
   resources :questions
   devise_for :users
-  root 'page#home'
+  root 'questions#index'
 end
