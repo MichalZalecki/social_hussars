@@ -5,3 +5,7 @@ Inspired by this {challenge application}[https://github.com/hussar-academy/chall
 === Doubts
 
 * Am I doing signing in inside functional tests right?
+
+=== Materials
+
+http://jan.varwig.org/wp-content/uploads/2006/09/Rdoc%20Cheat%20Sheet.pdf
