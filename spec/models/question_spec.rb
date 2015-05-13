@@ -14,4 +14,16 @@ RSpec.describe Question, type: :model do
     expect(build(:question, title: nil)).to be_invalid
   end
 
+  describe 'assotiations' do
+
+    it 'belongs to User' do
+      expect(Question.reflect_on_association(:user).macro).to eq(:belongs_to)
+    end
+
+    it 'has many Answers' do
+      expect(Question.reflect_on_association(:answers).macro).to eq(:has_many)
+    end
+
+  end
+
 end
