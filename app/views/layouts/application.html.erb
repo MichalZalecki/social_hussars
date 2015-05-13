@@ -8,12 +8,45 @@
 </head>
 <body>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to 'SocialHussars', root_path, class: 'navbar-brand' %>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="nav navbar-nav">
+        <!-- Add more links here -->
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= current_user.email %> <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <%= bootstrap_navbar_link_to('Log out', destroy_user_session_path, method: :delete, data: {confirm: 'Are you sure?'}) %>
+            </ul>
+          </li>
+        <% else %>
+          <%= bootstrap_navbar_link_to('Sign up', new_user_registration_path) %>
+          <%= bootstrap_navbar_link_to('Sign in', new_user_session_path) %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-<%= link_to 'Sing out', destroy_user_session_path, method: :delete %>
+<div class="container-fluid">
+  <% flash.each do |type, msg| %>
+    <%= content_tag :div, msg, class: bootstrap_alert_classes_for(type) %>
+  <% end %>
 
-<%= yield %>
+  <%= yield %>
+</div>
 
 </body>
 </html>
