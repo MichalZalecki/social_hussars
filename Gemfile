@@ -34,6 +34,7 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'dotenv-rails', '~> 2.0.1'
+  gem 'ffaker', '~> 2.0.0'
 
 end
 
