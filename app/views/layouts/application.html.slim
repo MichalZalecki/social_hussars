@@ -1,0 +1,43 @@
+doctype html
+html
+  head
+    title SocialHussars
+    == stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    == javascript_include_tag 'application', 'data-turbolinks-track' => true
+    == csrf_meta_tags
+  body
+    nav.navbar.navbar-default
+      div.container-fluid
+        div.navbar-header
+          button[type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"]
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          == link_to 'SocialHussars', root_path, class: 'navbar-brand'
+
+        div#navbar.collapse.navbar-collapse
+
+          ul.nav.navbar-nav
+            - if user_signed_in?
+              = bootstrap_navbar_link_to('Ask question', new_question_path)
+
+          ul.nav.navbar-nav.navbar-right
+            - if user_signed_in?
+              li.dropdown
+                a[class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false"]
+                  = current_user.email
+                  span.caret
+                ul.dropdown-menu[role="menu"]
+                  == bootstrap_navbar_link_to('Log out', destroy_user_session_path, method: :delete, data: {confirm: 'Are you sure?'})
+            - else
+              == bootstrap_navbar_link_to('Sign up', new_user_registration_path)
+              == bootstrap_navbar_link_to('Sign in', new_user_session_path)
+
+    div.container-fluid
+
+      - flash.each do |type, msg|
+        div[class=bootstrap_alert_classes_for(type)]
+          = msg
+
+      == yield
