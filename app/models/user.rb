@@ -7,7 +7,15 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :answers
 
+  before_validation :starting_points
+
   def to_s
     email
+  end
+
+  private
+
+  def starting_points
+    self.points ||= 100
   end
 end

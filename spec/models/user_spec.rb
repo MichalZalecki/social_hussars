@@ -17,19 +17,14 @@ RSpec.describe User, type: :model do
       user = build(:user)
       expect(user.to_s).to eq(user.email)
     end
-
   end
 
-  # describe 'associations' do
+  describe '#starting_points' do
 
-  #   it 'has many to Questions' do
-  #     expect(User.reflect_on_association(:questions).macro).to eq(:has_many)
-  #   end
-
-  #   it 'has many to Answers' do
-  #     expect(User.reflect_on_association(:answers).macro).to eq(:has_many)
-  #   end
-
-  # end
-
+    it 'sets default points' do
+      user = build(:user)
+      user.send(:starting_points) # starting_points is private
+      expect(user.points).to eq(100)
+    end
+  end
 end
