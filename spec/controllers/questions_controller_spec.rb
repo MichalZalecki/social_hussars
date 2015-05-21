@@ -3,6 +3,7 @@ require 'rails_helper'
 describe QuestionsController do
 
   let(:user) { create(:user) }
+  let(:other_user) { create(:user, :other_user) }
   let(:question) { create(:question) }
 
   it do
@@ -103,7 +104,7 @@ describe QuestionsController do
 
       before(:each) do
         sign_in question.user
-        get :edit, { id: question }
+        get :edit, id: question
       end
 
       it { should respond_with :success }
@@ -117,8 +118,8 @@ describe QuestionsController do
     context 'when user is signed in NOT as the question author' do
 
       before(:each) do
-        sign_in user
-        get :edit, { id: question }
+        sign_in other_user
+        get :edit, id: question
       end
 
       it { should redirect_to root_path }
@@ -126,13 +127,84 @@ describe QuestionsController do
 
     context 'when user is NOT signed in' do
 
-      before(:each) { get :edit, { id: question } }
+      before(:each) { get :edit, id: question }
 
       it { should redirect_to new_user_session_path }
     end
   end
 
   describe 'POST #update' do
+
+    context 'when user is signed in as the question author' do
+
+      before(:each) do
+        question
+        sign_in question.user
+      end
+
+      context 'with valid attributes' do
+
+        before(:each) do
+           patch :update, id: question, question: attributes_for(:question, title: 'Updated title' )
+        end
+
+        it 'updates the question' do
+          expect(Question.first.title).to eq('Updated title')
+        end
+
+        it { should redirect_to question_path(question) }
+      end
+
+      context 'with invalid attributes' do
+
+        before(:each) do
+           patch :update, id: question, question: attributes_for(:question, title: nil )
+        end
+
+        it 'does not update the question' do
+          expect(Question.first.title).to eq('Question Title')
+        end
+
+        it { should render_template :edit }
+
+      end
+    end
+
+    context 'when user is signed in NOT as the question author' do
+
+      before(:each) { sign_in other_user }
+
+      context 'with valid attributes' do
+
+        before(:each) do
+           patch :update, id: question, question: attributes_for(:question, title: 'Updated title' )
+        end
+
+        it 'does not update the question' do
+          expect(Question.first.title).to eq('Question Title')
+        end
+
+        it { should redirect_to root_path }
+
+      end
+    end
+
+    context 'when user is NOT signed in' do
+
+      context 'with valid attributes' do
+
+        before(:each) do
+           patch :update, id: question, question: attributes_for(:question, title: 'Updated title' )
+        end
+
+        it 'does not update the question' do
+          expect(Question.first.title).to eq('Question Title')
+        end
+
+        it { should redirect_to new_user_session_path }
+
+      end
+    end
 
   end
 

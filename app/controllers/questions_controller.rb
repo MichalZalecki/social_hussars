@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :find_question, only: [:show, :edit]
-  before_action :authenticate_owner!, only: [:edit]
+  before_action :find_question, only: [:show, :edit, :update]
+  before_action :authenticate_owner!, except: [:index, :show, :new, :create]
 
   def index
     @questions = Question.all
@@ -17,7 +17,7 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     if @question.save
-      redirect_to @question, notice: 'Question was created'
+      redirect_to @question, success: 'Question was created'
     else
       render :new
     end
@@ -27,6 +27,11 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    if @question.update(question_params)
+      redirect_to @question, success: 'Question was updated'
+    else
+      render :edit
+    end
   end
 
   private
