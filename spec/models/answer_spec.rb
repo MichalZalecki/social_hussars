@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Answer do
 
-  it 'has a vaild factory' do
+  it 'has a valid factory' do
     expect(build(:answer)).to be_valid
   end
 
