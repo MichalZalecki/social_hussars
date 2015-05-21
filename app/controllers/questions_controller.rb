@@ -4,10 +4,11 @@ class QuestionsController < ApplicationController
   before_action :authenticate_owner!, except: [:index, :show, :new, :create]
 
   def index
-    @questions = Question.all
+    @questions = Question.order('created_at DESC')
   end
 
   def show
+    @answer = Answer.new
   end
 
   def new
@@ -16,8 +17,9 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
+    @question.user = current_user
     if @question.save
-      redirect_to @question, success: 'Question was created'
+      redirect_to @question, notice: 'Question was created'
     else
       render :new
     end
@@ -28,7 +30,7 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update(question_params)
-      redirect_to @question, success: 'Question was updated'
+      redirect_to @question, notice: 'Question was updated'
     else
       render :edit
     end

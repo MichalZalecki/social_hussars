@@ -7,6 +7,7 @@ describe Question do
   end
 
   it { should validate_presence_of(:title) }
+  it { should validate_presence_of(:user) }
 
   describe 'associations' do
 

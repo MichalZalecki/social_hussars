@@ -33,6 +33,10 @@ describe QuestionsController do
     it 'assigns the requested question as @question' do
       expect(assigns(:question)).to eq(question)
     end
+
+    it 'assigns the new answer as @asnwer' do
+      expect(assigns(:answer)).to be_a_new(Answer)
+    end
   end
 
   describe 'GET #new' do

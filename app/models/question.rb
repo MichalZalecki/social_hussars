@@ -3,4 +3,9 @@ class Question < ActiveRecord::Base
   has_many :answers
 
   validates :title, presence: true
+  validates :user, presence: true
+
+  def owner?(user)
+    self.user == user
+  end
 end
