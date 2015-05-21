@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.1'
 gem 'pg'
 gem 'devise', '~> 3.4.1'
+gem 'acts_as_votable'
 
 # frontend
 gem 'sass-rails', '~> 5.0'

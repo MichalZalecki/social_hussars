@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   get 'page/home'
   resources :questions, except: :destroy do
-    resources :answers, only: [:create]
+    resources :answers, only: [:create] do
+      post 'upvote'
+      post 'downvote'
+    end
   end
   devise_for :users
   root 'questions#index'

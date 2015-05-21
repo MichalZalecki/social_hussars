@@ -16,7 +16,11 @@ describe AnswersController do
         before(:each) { post :create, question_id: question.id, answer: attributes_for(:answer) }
 
         it 'adds answer to question' do
-          expect(Answer.count).to eq(1)
+          expect(question.answers.count).to eq(1)
+        end
+
+        it 'adds user to answer' do
+          expect(question.answers.first.user).to eq(other_user)
         end
 
         it { should redirect_to question_path(question) }
@@ -28,7 +32,7 @@ describe AnswersController do
         before(:each) { post :create, question_id: question.id, answer: { contents: nil } }
 
         it 'does not add answer to question' do
-          expect(Answer.count).to eq(0)
+          expect(question.answers.count).to eq(0)
         end
 
         it { should render_template 'questions/show' }
@@ -42,7 +46,7 @@ describe AnswersController do
         before(:each) { post :create, question_id: question.id, answer: attributes_for(:answer) }
 
         it 'does not add answer to question' do
-          expect(Answer.count).to eq(0)
+          expect(question.answers.count).to eq(0)
         end
 
         it { should redirect_to new_user_session_path }
