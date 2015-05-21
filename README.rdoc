@@ -5,6 +5,8 @@ Inspired by this {challenge application}[https://github.com/hussar-academy/chall
 === Doubts
 
 * Am I doing signing in inside functional tests right?
+* AnswersController#upvote and AnswersController#downvote look at least NOT DRY.
+* Should I use more different factories (factory_girl)? I come across minor problems with uniqueness from time to time.
 
 === Materials
 

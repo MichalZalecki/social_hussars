@@ -26,7 +26,7 @@ html
             - if user_signed_in?
               li.dropdown
                 a[class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false"]
-                  = current_user.email
+                  = current_user
                   span.caret
                 ul.dropdown-menu[role="menu"]
                   == bootstrap_navbar_link_to('Log out', destroy_user_session_path, method: :delete, data: {confirm: 'Are you sure?'})

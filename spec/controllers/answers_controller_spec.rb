@@ -4,6 +4,7 @@ describe AnswersController do
 
   let(:other_user) { create(:user, :other_user) }
   let(:question) { create(:question) }
+  let(:answer_with_author) { create(:answer, :with_author) }
 
   describe 'POST #create' do
 
@@ -53,6 +54,32 @@ describe AnswersController do
 
       end
     end
+  end
+
+  describe 'POST #upvote' do
+
+    before(:each) { post :upvote, question_id: question.id, answer_id: answer_with_author.id }
+
+    context 'when user is signed in as answer author' do
+    end
+
+    context 'when user is signed in NOT as answer author' do
+      context 'when user have already voted' do
+      end
+
+      context 'when user have not voted yet' do
+      end
+    end
+
+    context 'when user is NOT signed in' do
+
+      it 'does not add upvotes to answer' do
+        expect(answer_with_author.get_upvotes.size).to eq(0)
+      end
+
+      it { should redirect_to new_user_session_path }
+    end
+
   end
 
 end

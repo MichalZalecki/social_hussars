@@ -13,9 +13,9 @@ RSpec.describe User, type: :model do
 
   describe '#to_s' do
 
-    it 'returns an email' do
+    it 'returns an email and points' do
       user = build(:user)
-      expect(user.to_s).to eq(user.email)
+      expect(user.to_s).to eq("#{user.email} (#{user.points})")
     end
   end
 

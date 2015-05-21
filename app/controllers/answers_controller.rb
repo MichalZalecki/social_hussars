@@ -16,12 +16,28 @@ class AnswersController < ApplicationController
   end
 
   def upvote
-    @answer.liked_by current_user
+    if current_user == @answer.user
+      flash[:alert] = 'Voting on yourself is so lame! You cannot do this.'
+    elsif current_user.voted_up_on? @answer
+      flash[:alert] = 'You have already upvoted this answer'
+    else
+      flash[:success] = 'Your upvoted the answer'
+      @answer.user.points_for_upvote
+      @answer.liked_by current_user
+    end
     redirect_to @question
   end
 
   def downvote
-    @answer.downvote_from current_user
+    if current_user == @answer.user
+      flash[:alert] = 'Voting on yourself is so lame! You cannot do this.'
+    elsif current_user.voted_down_on? @answer
+      flash[:alert] = 'You have already downvoted this answer'
+    else
+      flash[:success] = 'Your downvoted the answer'
+      @answer.user.points_for_downvote
+      @answer.downvote_from current_user
+    end
     redirect_to @question
   end
 
