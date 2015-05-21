@@ -6,6 +6,11 @@ RSpec.describe User, type: :model do
     expect(build(:user)).to be_valid
   end
 
+  describe 'associations' do
+    it { should have_many(:questions) }
+    it { should have_many(:answers) }
+  end
+
   describe '#to_s' do
 
     it 'returns an email' do
@@ -15,16 +20,16 @@ RSpec.describe User, type: :model do
 
   end
 
-  describe 'associations' do
+  # describe 'associations' do
 
-    it 'has many to Questions' do
-      expect(User.reflect_on_association(:questions).macro).to eq(:has_many)
-    end
+  #   it 'has many to Questions' do
+  #     expect(User.reflect_on_association(:questions).macro).to eq(:has_many)
+  #   end
 
-    it 'has many to Answers' do
-      expect(User.reflect_on_association(:answers).macro).to eq(:has_many)
-    end
+  #   it 'has many to Answers' do
+  #     expect(User.reflect_on_association(:answers).macro).to eq(:has_many)
+  #   end
 
-  end
+  # end
 
 end

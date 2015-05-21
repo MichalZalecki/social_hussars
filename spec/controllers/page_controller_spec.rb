@@ -1,12 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe PageController, type: :controller do
+describe PageController do
 
   describe "GET #home" do
-    it "returns http success" do
-      get :home
-      expect(response).to have_http_status(:success)
-    end
+
+    before(:each) { get :home }
+
+    it { should respond_with(:success) }
+    it { should render_template(:home) }
+
   end
 
 end

@@ -28,6 +28,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'poltergeist', '~> 1.6.0'
   gem 'rspec-rails', '~> 3.2.1'
+  gem 'shoulda-matchers', '~> 2.8.0'
 
   # other
   gem 'byebug'
