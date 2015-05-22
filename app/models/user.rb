@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   POINTS_FOR_ASKING_QUESTION = 10
   POINTS_FOR_ACCEPTED_ANSWER = 25
   POINTS_FOR_START           = 100
+  POINTS_TO_BE_A_SUPERSTAR   = 1000
 
   def to_s
     "#{username} (#{points})"
@@ -55,6 +56,10 @@ class User < ActiveRecord::Base
 
   def able_to_ask_question?
     self.points >= POINTS_FOR_ASKING_QUESTION
+  end
+
+  def superstar?
+    self.points >= POINTS_TO_BE_A_SUPERSTAR
   end
 
   private

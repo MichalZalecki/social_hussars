@@ -5,9 +5,10 @@ Rails.application.routes.draw do
     resources :answers, only: [:create] do
       post 'upvote'
       post 'downvote'
-      post 'accept'
+    post 'accept'
     end
   end
   devise_for :users
+  resources :users, only: [:show]
   root 'questions#index'
 end

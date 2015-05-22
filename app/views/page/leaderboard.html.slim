@@ -7,5 +7,5 @@ table.table.table-hover
   - @users.each_index do |index|
     tr
       td = index+1
-      td = @users[index].username
+      td = link_to @users[index].username, user_path(@users[index])
       td = @users[index].points
