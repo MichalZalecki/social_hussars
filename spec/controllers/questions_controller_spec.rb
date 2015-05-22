@@ -3,7 +3,7 @@ require 'rails_helper'
 describe QuestionsController do
 
   let(:user) { create(:user) }
-  let(:other_user) { create(:user, :other_user) }
+  let(:other_user) { create(:user) }
   let(:question) { create(:question) }
 
   it do

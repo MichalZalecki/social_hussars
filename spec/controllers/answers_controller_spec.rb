@@ -2,15 +2,15 @@ require 'rails_helper'
 
 describe AnswersController do
 
-  let(:other_user) { create(:user, :other_user) }
+  let(:user) { create(:user) }
   let(:question) { create(:question) }
-  let(:answer_with_author) { create(:answer, :with_author) }
+  let(:answer) { create(:answer) }
 
   describe 'POST #create' do
 
     context 'when user is signed in' do
 
-      before(:each) { sign_in other_user }
+      before(:each) { sign_in user }
 
       context 'with valid attributes' do
 
@@ -21,7 +21,7 @@ describe AnswersController do
         end
 
         it 'adds user to answer' do
-          expect(question.answers.first.user).to eq(other_user)
+          expect(question.answers.first.user).to eq(user)
         end
 
         it { should redirect_to question_path(question) }
@@ -32,7 +32,7 @@ describe AnswersController do
 
         before(:each) { post :create, question_id: question.id, answer: { contents: nil } }
 
-        it 'does not add answer to question' do
+        it 'does not answer to question' do
           expect(question.answers.count).to eq(0)
         end
 
@@ -46,7 +46,7 @@ describe AnswersController do
 
         before(:each) { post :create, question_id: question.id, answer: attributes_for(:answer) }
 
-        it 'does not add answer to question' do
+        it 'does not answer to question' do
           expect(question.answers.count).to eq(0)
         end
 
@@ -58,23 +58,61 @@ describe AnswersController do
 
   describe 'POST #upvote' do
 
-    before(:each) { post :upvote, question_id: question.id, answer_id: answer_with_author.id }
-
     context 'when user is signed in as answer author' do
+
+      before(:each) do
+        sign_in answer.user
+        post :upvote, question_id: question.id, answer_id: answer.id
+      end
+
+      it { should set_flash[:alert].to('Voting on yourself is so lame! You cannot do this.') }
+      it { should redirect_to question_path(question) }
+
+      it 'does not upvotes to answer' do
+        expect(answer.get_upvotes.size).to eq(0)
+      end
     end
 
     context 'when user is signed in NOT as answer author' do
+
       context 'when user have already voted' do
+
+        before(:each) do
+          sign_in user
+          answer.liked_by user
+          post :upvote, question_id: question.id, answer_id: answer.id
+        end
+
+        it { should set_flash[:alert].to('You have already upvoted this answer') }
+        it { should redirect_to question_path(question) }
+
+        it 'does not upvotes to answer' do
+          expect(answer.get_upvotes.size).to eq(1)
+        end
       end
 
       context 'when user have not voted yet' do
+
+        before(:each) do
+          sign_in user
+          post :upvote, question_id: question.id, answer_id: answer.id
+        end
+
+        it { should set_flash[:success].to('You upvoted the answer') }
+        it { should redirect_to question_path(question) }
+
+        it 'upvotes to answer' do
+          expect(answer.get_upvotes.size).to eq(1)
+        end
       end
     end
 
     context 'when user is NOT signed in' do
 
-      it 'does not add upvotes to answer' do
-        expect(answer_with_author.get_upvotes.size).to eq(0)
+      before(:each) { post :upvote, question_id: question.id, answer_id: answer.id }
+
+      it 'does not upvotes to answer' do
+        expect(answer.get_upvotes.size).to eq(0)
       end
 
       it { should redirect_to new_user_session_path }
