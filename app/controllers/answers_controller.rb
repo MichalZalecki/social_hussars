@@ -34,7 +34,7 @@ class AnswersController < ApplicationController
     elsif current_user.voted_down_on? @answer
       flash[:alert] = 'You have already downvoted this answer'
     else
-      flash[:success] = 'Your downvoted the answer'
+      flash[:success] = 'You downvoted the answer'
       @answer.user.points_for_downvote
       @answer.downvote_from current_user
     end

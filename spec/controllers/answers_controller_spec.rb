@@ -68,7 +68,7 @@ describe AnswersController do
       it { should set_flash[:alert].to('Voting on yourself is so lame! You cannot do this.') }
       it { should redirect_to question_path(question) }
 
-      it 'does not upvotes to answer' do
+      it 'does not upvotes answer' do
         expect(answer.get_upvotes.size).to eq(0)
       end
     end
@@ -86,7 +86,7 @@ describe AnswersController do
         it { should set_flash[:alert].to('You have already upvoted this answer') }
         it { should redirect_to question_path(question) }
 
-        it 'does not upvotes to answer' do
+        it 'does not upvotes answer' do
           expect(answer.get_upvotes.size).to eq(1)
         end
       end
@@ -101,7 +101,7 @@ describe AnswersController do
         it { should set_flash[:success].to('You upvoted the answer') }
         it { should redirect_to question_path(question) }
 
-        it 'upvotes to answer' do
+        it 'upvotes answer' do
           expect(answer.get_upvotes.size).to eq(1)
         end
       end
@@ -111,7 +111,71 @@ describe AnswersController do
 
       before(:each) { post :upvote, question_id: question.id, answer_id: answer.id }
 
-      it 'does not upvotes to answer' do
+      it 'does not upvotes answer' do
+        expect(answer.get_upvotes.size).to eq(0)
+      end
+
+      it { should redirect_to new_user_session_path }
+    end
+
+  end
+
+  describe 'POST #downvote' do
+
+    context 'when user is signed in as answer author' do
+
+      before(:each) do
+        sign_in answer.user
+        post :downvote, question_id: question.id, answer_id: answer.id
+      end
+
+      it { should set_flash[:alert].to('Voting on yourself is so lame! You cannot do this.') }
+      it { should redirect_to question_path(question) }
+
+      it 'does not downvotes answer' do
+        expect(answer.get_downvotes.size).to eq(0)
+      end
+    end
+
+    context 'when user is signed in NOT as answer author' do
+
+      context 'when user have already voted' do
+
+        before(:each) do
+          sign_in user
+          answer.downvote_from user
+          post :downvote, question_id: question.id, answer_id: answer.id
+        end
+
+        it { should set_flash[:alert].to('You have already downvoted this answer') }
+        it { should redirect_to question_path(question) }
+
+        it 'does not downvotes answer' do
+          expect(answer.get_downvotes.size).to eq(1)
+        end
+      end
+
+      context 'when user have not voted yet' do
+
+        before(:each) do
+          sign_in user
+          post :downvote, question_id: question.id, answer_id: answer.id
+        end
+
+        it { should set_flash[:success].to('You downvoted the answer') }
+        it { should redirect_to question_path(question) }
+
+        it 'downvotes answer' do
+          expect(answer.get_downvotes.size).to eq(1)
+        end
+      end
+    end
+
+    context 'when user is NOT signed in' do
+
+      before(:each) { post :downvote, question_id: question.id, answer_id: answer.id }
+
+      it 'does not upvotes answer' do
         expect(answer.get_upvotes.size).to eq(0)
       end
 
