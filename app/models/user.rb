@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :answers
 
+  validates :username, presence: true
+
   before_validation :points_for_start
 
   POINTS_FOR_VOTE            = 5
@@ -16,7 +18,7 @@ class User < ActiveRecord::Base
   POINTS_FOR_START           = 100
 
   def to_s
-    "#{email} (#{points})"
+    "#{username} (#{points})"
   end
 
   def points_for_upvote(user, answer)

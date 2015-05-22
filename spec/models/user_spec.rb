@@ -6,6 +6,8 @@ RSpec.describe User, type: :model do
   let(:answer) { create(:answer) }
   let(:voter) { create(:user) }
 
+  it { should validate_presence_of(:username) }
+
   it 'has a valid factory' do
     is_expected.to be_valid
   end
@@ -18,7 +20,7 @@ RSpec.describe User, type: :model do
   describe '#to_s' do
 
     it 'returns an email and points' do
-      expect(user.to_s).to eq("#{user.email} (#{user.points})")
+      expect(user.to_s).to eq("#{user.username} (#{user.points})")
     end
   end
 
