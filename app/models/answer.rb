@@ -5,6 +5,8 @@ class Answer < ActiveRecord::Base
   belongs_to :question
 
   validates :contents, presence: true
+  validates :user, presence: true
+  validates :question, presence: true
 
   def accept
     self.accepted = true

@@ -22,7 +22,7 @@ class AnswersController < ApplicationController
       flash[:alert] = 'You have already upvoted this answer'
     else
       flash[:success] = 'You upvoted the answer'
-      @answer.user.points_for_upvote
+      @answer.user.points_for_upvote(current_user, @answer)
       @answer.liked_by current_user
     end
     redirect_to @question
@@ -35,7 +35,7 @@ class AnswersController < ApplicationController
       flash[:alert] = 'You have already downvoted this answer'
     else
       flash[:success] = 'You downvoted the answer'
-      @answer.user.points_for_downvote
+      @answer.user.points_for_downvote(current_user, @answer)
       @answer.downvote_from current_user
     end
     redirect_to @question

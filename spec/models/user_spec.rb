@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 
   subject(:user){ build(:user) }
+  let(:answer) { create(:answer) }
+  let(:voter) { create(:user) }
 
   it 'has a valid factory' do
     is_expected.to be_valid
@@ -30,15 +32,37 @@ RSpec.describe User, type: :model do
 
   describe '#points_for_upvote' do
 
-    it 'gives points for upvote' do
-      expect { user.points_for_upvote }.to change(user, :points).by(5)
+    context 'voter did NOT downvote answer before' do
+      it 'gives points for upvote' do
+        expect { user.points_for_upvote(voter, answer) }.to change(user, :points).by(5)
+      end
+    end
+
+    context 'voter downvoted answer before' do
+
+      before(:each) { answer.downvote_from voter }
+
+      it 'gives points for upvote' do
+        expect { user.points_for_upvote(voter, answer) }.to change(user, :points).by(10)
+      end
     end
   end
 
   describe '#points_for_downvote' do
 
-    it 'takes points for downvote' do
-      expect { user.points_for_downvote }.to change(user, :points).by(-5)
+    context 'voter did NOT upvote answer before' do
+      it 'takes points for upvote' do
+        expect { user.points_for_downvote(voter, answer) }.to change(user, :points).by(-5)
+      end
+    end
+
+    context 'voter upvoteed answer before' do
+
+      before(:each) { answer.liked_by voter }
+
+      it 'takes points for upvote' do
+        expect { user.points_for_downvote(voter, answer) }.to change(user, :points).by(-10)
+      end
     end
   end
 

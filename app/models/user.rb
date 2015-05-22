@@ -14,13 +14,21 @@ class User < ActiveRecord::Base
     "#{email} (#{points})"
   end
 
-  def points_for_upvote
-    self.points += 5
+  def points_for_upvote(user, answer)
+    if user.voted_down_on? answer
+      self.points += 10
+    else
+      self.points += 5
+    end
     self.save
   end
 
-  def points_for_downvote
-    self.points -= 5
+  def points_for_downvote(user, answer)
+    if user.voted_up_on? answer
+      self.points -= 10
+    else
+      self.points -= 5
+    end
     self.save
   end
 

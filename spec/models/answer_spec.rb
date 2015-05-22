@@ -9,6 +9,8 @@ describe Answer do
   end
 
   it { should validate_presence_of(:contents) }
+  it { should validate_presence_of(:user) }
+  it { should validate_presence_of(:question) }
 
   describe 'associations' do
 
