@@ -7,6 +7,12 @@ RSpec.describe User, type: :model do
   let(:voter) { create(:user) }
 
   it { should validate_presence_of(:username) }
+  it { should have_attached_file(:avatar) }
+  it { should validate_attachment_content_type(:avatar)
+        .allowing('image/png', 'image/gif', 'image/jpeg', 'image/jpg')
+        .rejecting('text/plain', 'text/xml') }
+  it { should validate_attachment_size(:avatar)
+        .less_than(1.megabyte) }
 
   it 'has a valid factory' do
     is_expected.to be_valid
