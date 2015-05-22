@@ -27,4 +27,28 @@ RSpec.describe User, type: :model do
       expect(user.points).to eq(100)
     end
   end
+
+  describe '#points_for_upvote' do
+
+    it 'gives points for upvote' do
+      user = build(:user)
+      expect { user.points_for_upvote }.to change(user, :points).by(5)
+    end
+  end
+
+  describe '#points_for_downvote' do
+
+    it 'takes points for downvote' do
+      user = build(:user)
+      expect { user.points_for_downvote }.to change(user, :points).by(-5)
+    end
+  end
+
+  describe '#points_for_accepted_answer' do
+
+    it 'takes points for downvote' do
+      user = build(:user)
+      expect { user.points_for_accepted_answer }.to change(user, :points).by(25)
+    end
+  end
 end

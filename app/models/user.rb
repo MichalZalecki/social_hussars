@@ -24,6 +24,11 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def points_for_accepted_answer
+    self.points += 25
+    self.save
+  end
+
   private
 
   def starting_points
