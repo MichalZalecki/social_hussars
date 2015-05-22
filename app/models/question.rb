@@ -8,4 +8,8 @@ class Question < ActiveRecord::Base
   def owner?(user)
     self.user == user
   end
+
+  def accepted?
+    self.answers.select(:accepted).map(&:accepted).reduce(:|)
+  end
 end

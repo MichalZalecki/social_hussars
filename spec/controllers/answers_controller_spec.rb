@@ -4,6 +4,7 @@ describe AnswersController do
 
   let(:user) { create(:user) }
   let(:question) { create(:question) }
+  let(:question_with_answers) { create(:question, :with_answers) }
   let(:answer) { create(:answer) }
 
   describe 'POST #create' do
@@ -181,7 +182,88 @@ describe AnswersController do
 
       it { should redirect_to new_user_session_path }
     end
-
   end
 
+  describe 'POST #accpet' do
+
+    context 'when user is signed in as question author' do
+
+      before(:each) { sign_in question_with_answers.user }
+
+      context 'when question is already accepted' do
+
+        let(:question_answer) { question_with_answers.answers.first }
+        before(:each) do
+          question_answer.accepted = true
+          question_answer.save
+          post :accept, question_id: question_with_answers.id, answer_id: question_answer.id
+        end
+
+        it { should set_flash[:alert].to('This question is already accepted') }
+        it { should redirect_to question_path(question_with_answers) }
+      end
+
+      context 'when question is NOT accepted yet' do
+
+        let(:question_answer) { question_with_answers.answers.first }
+        before(:each) do
+          post :accept, question_id: question_with_answers.id, answer_id: question_answer.id
+        end
+
+        it { should set_flash[:success].to('You have accepted the answer') }
+        it { should redirect_to question_path(question_with_answers) }
+
+        it 'accepts the answer' do
+          expect(question_with_answers.accepted?).to be(true)
+        end
+      end
+    end
+
+    context 'when user is signed in NOT as question author' do
+
+      let(:question_answer) { question_with_answers.answers.first }
+      let(:other_user) { create(:user) }
+      before(:each) do
+        sign_in other_user
+        post :accept, question_id: question_with_answers.id, answer_id: question_answer.id
+      end
+
+      it { should set_flash[:alert].to('Only the question author can accept the question') }
+      it { should redirect_to question_path(question_with_answers) }
+
+      it 'does not accepts the answer' do
+          expect(question_with_answers.accepted?).to be(false)
+      end
+    end
+
+    context 'when user is signed in as answer author' do
+
+      let(:question_answer) { question_with_answers.answers.first }
+      before(:each) do
+        # this situation shouldn't happen but it won't brake if any
+        question_with_answers.user = question_answer.user
+        question_with_answers.save
+        sign_in question_answer.user
+        post :accept, question_id: question_with_answers.id, answer_id: question_answer.id
+      end
+
+      it { should set_flash[:alert].to('Accepting yours answer is so lame! You cannot do this.') }
+      it { should redirect_to question_path(question_with_answers) }
+
+      it 'does not accepts the answer' do
+          expect(question_with_answers.accepted?).to be(false)
+      end
+    end
+
+    context 'when user is NOT signed in' do
+
+      let(:question_answer) { question_with_answers.answers.first }
+      before(:each) do
+        post :accept, question_id: question_with_answers.id, answer_id: question_answer.id
+      end
+
+      it { should redirect_to new_user_session_path }
+
+    end
+  end
 end

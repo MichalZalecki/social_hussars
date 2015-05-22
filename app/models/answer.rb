@@ -5,4 +5,10 @@ class Answer < ActiveRecord::Base
   belongs_to :question
 
   validates :contents, presence: true
+
+  def accept
+    self.accepted = true
+    self.user.points_for_accepted_answer
+    self.save
+  end
 end

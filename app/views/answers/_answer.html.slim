@@ -1,5 +1,8 @@
 p = answer.contents
 div
+  = answer.user
   = link_to 'Upvote', question_answer_upvote_path(@question, answer), method: :post
   = link_to 'Downvote', question_answer_downvote_path(@question, answer), method: :post
   = "(#{answer.get_upvotes.size} / #{answer.get_upvotes.size + answer.get_downvotes.size})"
+  - if !@question.accepted? && @question.owner?(current_user)
+    = link_to 'Accept', question_answer_accept_path(@question, answer), method: :post, data: { confirm: 'Are you sure?' }

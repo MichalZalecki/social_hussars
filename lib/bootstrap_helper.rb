@@ -1,12 +1,12 @@
 module BootstrapHelper
-  def bootstrap_alert_classes_for(flash_type)
-    classes_mapping = {
+  def bootstrap_alert_classes_for(flash)
+    classes = {
       success: "alert-success",
       error: "alert-danger",
       alert: "alert-warning",
       notice: "alert-info"
     }
-    "alert " + classes_mapping[flash_type.to_sym] || flash_type.to_s
+    classes[flash.to_sym].nil? ? flash.to_s : "alert " + classes[flash.to_sym]
   end
   def bootstrap_navbar_link_to(*args)
     class_attr = ( request.fullpath == args[1] ? ' class="active"' : '' )

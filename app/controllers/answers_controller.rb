@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_answer, only: [:upvote, :downvote]
-  before_action :find_question, only: [:upvote, :downvote]
+  before_action :find_answer, only: [:upvote, :downvote, :accept]
+  before_action :find_question, only: [:upvote, :downvote, :accept]
 
   def create
     @answer = Answer.new(answer_params)
@@ -37,6 +37,26 @@ class AnswersController < ApplicationController
       flash[:success] = 'You downvoted the answer'
       @answer.user.points_for_downvote
       @answer.downvote_from current_user
+    end
+    redirect_to @question
+  end
+
+  def accept
+    catch(:done) do
+      if @question.accepted?
+        flash[:alert] = 'This question is already accepted'
+        throw(:done)
+      elsif current_user != @question.user
+        flash[:alert] = 'Only the question author can accept the question'
+        throw :done
+      elsif current_user == @answer.user
+        flash[:alert] = 'Accepting yours answer is so lame! You cannot do this.'
+        throw :done
+      else
+        flash[:success] = 'You have accepted the answer'
+        @answer.accept
+        throw :done
+      end
     end
     redirect_to @question
   end
