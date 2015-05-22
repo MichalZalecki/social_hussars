@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
 
   before_validation :points_for_start
 
+  has_attached_file :avatar, :styles => { :thumb => '100x100#' }, :default_url => '/images/blank.jpg'
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+
   POINTS_FOR_VOTE            = 5
   POINTS_FOR_ASKING_QUESTION = 10
   POINTS_FOR_ACCEPTED_ANSWER = 25
