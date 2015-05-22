@@ -37,6 +37,15 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def points_for_asking_question
+    self.points -= 10
+    self.save
+  end
+
+  def able_to_ask_question?
+    self.points >= 10
+  end
+
   private
 
   def starting_points

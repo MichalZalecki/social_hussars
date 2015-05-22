@@ -6,3 +6,6 @@ div
   = "(#{answer.get_upvotes.size} / #{answer.get_upvotes.size + answer.get_downvotes.size})"
   - if !@question.accepted? && @question.owner?(current_user)
     = link_to 'Accept', question_answer_accept_path(@question, answer), method: :post, data: { confirm: 'Are you sure?' }
+  - if answer.accepted?
+    | Accepted
+

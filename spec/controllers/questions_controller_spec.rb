@@ -43,16 +43,34 @@ describe QuestionsController do
 
     context 'when user is signed in' do
 
-      before(:each) do
-        sign_in user
-        get :new
+      before(:each) { sign_in user }
+
+      context 'able to ask question' do
+
+        before(:each) do
+          allow(user).to receive(:able_to_ask_question?) { true }
+          allow(controller).to receive(:current_user) { user }
+          get :new
+        end
+
+        it { should respond_with(:success) }
+        it { should render_template(:new) }
+
+        it 'assigns a new question as @question' do
+          expect(assigns(:question)).to be_a_new(Question)
+        end
       end
 
-      it { should respond_with(:success) }
-      it { should render_template(:new) }
+      context 'unable to ask question' do
 
-      it 'assigns a new question as @question' do
-        expect(assigns(:question)).to be_a_new(Question)
+        before(:each) do
+          allow(user).to receive(:able_to_ask_question?) { false }
+          allow(controller).to receive(:current_user) { user }
+          get :new
+        end
+
+        it { should set_flash[:alert].to('You don\'t have enougth points to ask the question') }
+        it { should redirect_to root_path }
       end
     end
 
@@ -70,28 +88,53 @@ describe QuestionsController do
 
       before(:each) { sign_in user }
 
-      context 'with valid attributes' do
+        context 'with valid attributes' do
 
-        before(:each) { post :create, question: attributes_for(:question) }
+          context 'able to ask question' do
 
-        it 'creates the new question' do
-          expect(Question.count).to eq(1)
+            before(:each) do
+              allow(user).to receive(:able_to_ask_question?) { true }
+              allow(controller).to receive(:current_user) { user }
+            end
+
+            before(:each) { post :create, question: attributes_for(:question) }
+
+            it 'creates the new question' do
+              expect(Question.count).to eq(1)
+            end
+
+            it { should set_flash[:success].to('Question was created') }
+            it { should redirect_to question_path(Question.first) }
+          end
+
+          context 'unable to ask question' do
+
+            before(:each) do
+              allow(user).to receive(:able_to_ask_question?) { false }
+              allow(controller).to receive(:current_user) { user }
+            end
+
+            before(:each) { post :create, question: attributes_for(:question) }
+
+            it 'does not create the new question' do
+              expect(Question.count).to eq(0)
+            end
+
+            it { should set_flash[:alert].to('You don\'t have enougth points to ask the question') }
+            it { should redirect_to root_path }
+          end
         end
 
+        context 'with invalid attributes' do
 
-        it { should redirect_to question_path(Question.first) }
-      end
+          before(:each) { post :create, question: attributes_for(:question, title: nil) }
 
-      context 'with invalid attributes' do
+          it 'does not create the new question' do
+            expect(Question.count).to eq(0)
+          end
 
-        before(:each) { post :create, question: attributes_for(:question, title: nil) }
-
-        it 'does not create the new question' do
-          expect(Question.count).to eq(0)
+          it { should render_template :new }
         end
-
-        it { should render_template :new }
-      end
     end
 
     context 'when user NOT signed in' do
@@ -156,6 +199,7 @@ describe QuestionsController do
           expect(Question.first.title).to eq('Updated title')
         end
 
+        it { should set_flash[:success].to('Question updated') }
         it { should redirect_to question_path(question) }
       end
 
