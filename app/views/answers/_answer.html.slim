@@ -1,6 +1,7 @@
 p = answer.contents
 div
   = answer.user
+  = image_tag answer.user.avatar.url(:thumb)
   = link_to 'Upvote', question_answer_upvote_path(@question, answer), method: :post
   = link_to 'Downvote', question_answer_downvote_path(@question, answer), method: :post
   = "(#{answer.get_upvotes.size} / #{answer.get_upvotes.size + answer.get_downvotes.size})"
