@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'page/home'
+  get 'page/leaderboard'
   resources :questions, except: :destroy do
     resources :answers, only: [:create] do
       post 'upvote'

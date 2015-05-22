@@ -19,6 +19,7 @@ html
         div#navbar.collapse.navbar-collapse
 
           ul.nav.navbar-nav
+            = bootstrap_navbar_link_to('Leaderboard', page_leaderboard_path)
             - if user_signed_in?
               = bootstrap_navbar_link_to('Ask question', new_question_path)
 
@@ -29,11 +30,11 @@ html
                   = current_user
                   span.caret
                 ul.dropdown-menu[role="menu"]
-                  == bootstrap_navbar_link_to('Log out', destroy_user_session_path, method: :delete, data: {confirm: 'Are you sure?'})
-                  == bootstrap_navbar_link_to('Edit profile', edit_user_registration_path)
+                  = bootstrap_navbar_link_to('Log out', destroy_user_session_path, method: :delete, data: {confirm: 'Are you sure?'})
+                  = bootstrap_navbar_link_to('Edit profile', edit_user_registration_path)
             - else
-              == bootstrap_navbar_link_to('Sign up', new_user_registration_path)
-              == bootstrap_navbar_link_to('Sign in', new_user_session_path)
+              = bootstrap_navbar_link_to('Sign up', new_user_registration_path)
+              = bootstrap_navbar_link_to('Sign in', new_user_session_path)
 
     div.container-fluid
 
