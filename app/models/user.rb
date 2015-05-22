@@ -8,7 +8,12 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :answers
 
-  before_validation :starting_points
+  before_validation :points_for_start
+
+  POINTS_FOR_VOTE            = 5
+  POINTS_FOR_ASKING_QUESTION = 10
+  POINTS_FOR_ACCEPTED_ANSWER = 25
+  POINTS_FOR_START           = 100
 
   def to_s
     "#{email} (#{points})"
@@ -16,39 +21,39 @@ class User < ActiveRecord::Base
 
   def points_for_upvote(user, answer)
     if user.voted_down_on? answer
-      self.points += 10
+      self.points += POINTS_FOR_VOTE * 2
     else
-      self.points += 5
+      self.points += POINTS_FOR_VOTE
     end
     self.save
   end
 
   def points_for_downvote(user, answer)
     if user.voted_up_on? answer
-      self.points -= 10
+      self.points -= POINTS_FOR_VOTE * 2
     else
-      self.points -= 5
+      self.points -= POINTS_FOR_VOTE
     end
     self.save
   end
 
   def points_for_accepted_answer
-    self.points += 25
+    self.points += POINTS_FOR_ACCEPTED_ANSWER
     self.save
   end
 
   def points_for_asking_question
-    self.points -= 10
+    self.points -= POINTS_FOR_ASKING_QUESTION
     self.save
   end
 
   def able_to_ask_question?
-    self.points >= 10
+    self.points >= POINTS_FOR_ASKING_QUESTION
   end
 
   private
 
-  def starting_points
-    self.points ||= 100
+  def points_for_start
+    self.points ||= POINTS_FOR_START
   end
 end

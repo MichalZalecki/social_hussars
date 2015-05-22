@@ -22,10 +22,10 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#starting_points' do
+  describe '#points_for_start' do
 
     it 'sets default points' do
-      user.send(:starting_points) # starting_points is private
+      user.send(:points_for_start) # points_for_start is private
       expect(user.points).to eq(100)
     end
   end
