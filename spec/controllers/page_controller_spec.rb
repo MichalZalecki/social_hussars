@@ -8,7 +8,6 @@ describe PageController do
 
     it { should respond_with(:success) }
     it { should render_template(:home) }
-
   end
 
   describe 'GET #leaderboard' do
@@ -22,7 +21,5 @@ describe PageController do
     it 'assigns all users to @users' do
       expect(assigns(:users)).to eq([user])
     end
-
   end
-
 end
