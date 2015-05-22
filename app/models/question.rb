@@ -12,7 +12,7 @@ class Question < ActiveRecord::Base
   end
 
   def accepted?
-    self.answers.select(:accepted).map(&:accepted).reduce(:|)
+    self.answers.pluck(:accepted).reduce(:|)
   end
 
   private
