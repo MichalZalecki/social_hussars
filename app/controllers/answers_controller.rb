@@ -1,16 +1,16 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_answer, only: [:upvote, :downvote, :accept]
-  before_action :find_question, only: [:upvote, :downvote, :accept]
+  before_action :find_question
 
   def create
     @answer = Answer.new(answer_params)
     @answer.question_id = params[:question_id]
     @answer.user = current_user
     if @answer.save
+      UserMailer.question_answered(@answer).deliver_later
       redirect_to question_path(params[:question_id]), notice: 'Answer was created'
     else
-      find_question
       render 'questions/show'
     end
   end
@@ -55,6 +55,7 @@ class AnswersController < ApplicationController
       else
         flash[:success] = 'You have accepted the answer'
         @answer.accept
+        UserMailer.answer_accepted(@answer).deliver_later
         throw :done
       end
     end
