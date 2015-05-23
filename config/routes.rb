@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     post 'accept'
     end
   end
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
   resources :users, only: [:show]
   root 'questions#index'
 end

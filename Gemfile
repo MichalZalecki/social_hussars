@@ -9,6 +9,9 @@ gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 gem 'resque'
 gem 'resque-scheduler'
+gem 'therubyracer'
+gem 'omniauth'
+gem 'omniauth-github'
 
 # frontend
 gem 'sass-rails', '~> 5.0'
