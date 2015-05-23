@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:github]
@@ -9,10 +7,10 @@ class User < ActiveRecord::Base
 
   has_many :questions
   has_many :answers
-  has_attached_file :avatar, :styles => { :thumb => '100x100#' }, :default_url => '/images/blank.jpg'
+  has_attached_file :avatar, styles: { thumb: '100x100#' }, default_url: '/images/blank.jpg'
 
-  validates :username, presence: true
-  validates_attachment_content_type :avatar, :content_type => /^image\/(png|gif|jpeg|jpg)/
+  validates :username, presence: true, uniqueness: true
+  validates_attachment_content_type :avatar, content_type: /^image\/(png|gif|jpeg|jpg)/
   validates_attachment_size :avatar, less_than: 1.megabyte
 
   before_validation :points_for_start
@@ -24,10 +22,18 @@ class User < ActiveRecord::Base
   POINTS_TO_BE_A_SUPERSTAR   = 1000
 
   def self.from_omniauth(auth)
-      where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
+        # when user which is already redistered has the same
+        # username as github nickname of new user
+        github_username = unique_username(auth.info.nickname)
+
+        # it's possible email wont be passed (depends on privacy settings)
+        github_email = auth.info.email.nil? ? "#{auth.info.nickname}@users.noreply.github.com" : auth.info.email
+
+        user.username = github_username
         user.provider = auth.provider
         user.uid = auth.uid
-        user.email = auth.info.email
+        user.email = github_email
         user.password = Devise.friendly_token[0,20]
       end
   end
@@ -77,4 +83,13 @@ class User < ActiveRecord::Base
   def points_for_start
     self.points ||= POINTS_FOR_START
   end
+
+  def self.unique_username(username)
+    unique = username
+    while User.unscoped.exists?(username: unique) do
+      unique = username + '-' + rand(36**8).to_s(36)
+    end
+    unique
+  end
+
 end

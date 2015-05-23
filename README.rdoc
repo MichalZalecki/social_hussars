@@ -4,10 +4,5 @@ Inspired by this {challenge application}[https://github.com/hussar-academy/chall
 
 === Doubts
 
-* Am I doing signing in inside functional tests right?
-* AnswersController#upvote and AnswersController#downvote look at least NOT DRY.
-* Should I use more different factories (factory_girl)? I come across minor problems with uniqueness from time to time.
-
-=== Materials
-
-http://jan.varwig.org/wp-content/uploads/2006/09/Rdoc%20Cheat%20Sheet.pdf
+* AnswersController#upvote and AnswersController#downvote look at least NOT very DRY.
+* GitHub signing in is heavily customized be me to always pass validation. It seems to work quite well though.

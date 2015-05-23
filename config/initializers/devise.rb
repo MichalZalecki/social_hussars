@@ -257,5 +257,5 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
-  config.omniauth :github, ENV['OMNIAUTH_GITHUB_ID'], ENV['OMNIAUTH_GITHUB_SECRET']
+  config.omniauth :github, ENV['OMNIAUTH_GITHUB_ID'], ENV['OMNIAUTH_GITHUB_SECRET'], :scope => 'user:email'
 end
