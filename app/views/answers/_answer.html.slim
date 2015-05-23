@@ -1,4 +1,4 @@
-p = answer.contents
+div == markdown.render(answer.contents)
 div
   = answer.user
   = image_tag answer.user.avatar.url(:thumb)

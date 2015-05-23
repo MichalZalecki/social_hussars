@@ -1,6 +1,6 @@
 article.question
   h2 = link_to(question.title, question_path(question))
-  p  = question.contents
+  div == markdown.render(question.contents)
   ul
     li = distance_of_time_in_words_to_now(question.created_at)
     - if question.owner?(current_user)
