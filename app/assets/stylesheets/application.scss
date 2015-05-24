@@ -8,6 +8,11 @@ $navbar-border-radius: 0;
 
 @import "devise_bootstrap_views";
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 body {
   background-color: $brand-primary;
 }
@@ -21,5 +26,18 @@ body {
     max-width: 101%; // magic number!
   }
 }
-.question {
+
+.answer {
+  border-bottom: 1px solid $panel-default-border;
+}
+
+.answer_content {
+  @media (min-width: $screen-sm-min) {
+    display: flex;
+  }
+}
+
+.answer__text {
+  border-left: 1px solid $gray-lighter;
+  border-right: 1px solid $gray-lighter;
 }

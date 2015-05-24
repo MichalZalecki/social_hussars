@@ -26,6 +26,7 @@ gem 'devise-bootstrap-views', '~> 0.0.5'
 gem 'slim-rails', '~> 3.0.1'
 gem 'simple_form'
 gem 'redcarpet'
+gem 'autoprefixer-rails'
 
 # doc
 gem 'sdoc', '~> 0.4.0', group: :doc

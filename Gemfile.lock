@@ -305,6 +305,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_votable
+  autoprefixer-rails
   aws-sdk (< 2.0)
   bootstrap-sass
   bootswatch-rails

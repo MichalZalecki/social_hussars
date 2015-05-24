@@ -1,26 +1,27 @@
 .answer.panel-body
-  .answer__content == markdown.render(answer.contents)
-  .answer__meta
-    = answer.user
-    = image_tag answer.user.avatar.url(:thumb)
-    = "(#{answer.get_upvotes.size} / #{answer.get_upvotes.size + answer.get_downvotes.size})"
-    - if !@question.accepted? && @question.owner?(current_user)
-      = link_to 'Accept', question_answer_accept_path(@question, answer),
-      method: :post, data: { confirm: 'Are you sure?' }
-    - if answer.accepted?
-      | Accepted
-  .answer__votes
-    .answer__votes__vote--upvote
-      = link_to question_answer_upvote_path(@question, answer),
-      method: :post, class: 'answer__votes__vote__link' do
-        i.glyphicon.glyphicon-thumbs-up
-      .answer__votes__vote__count--upvote
-        = answer.get_upvotes.size
-    .answer__votes__vote--downvote
-      = link_to question_answer_downvote_path(@question, answer),
-      method: :post, class: 'answer__votes__vote__link' do
-        i.glyphicon.glyphicon-thumbs-down
-      .answer__votes__vote__count--downvote
-        = answer.get_downvotes.size
-
-
+  .row
+    .col-xs-12
+      = answer.user
+  .answer_content.row
+    .answer__meta.col-xs-12.col-sm-2
+      = image_tag answer.user.avatar.url(:thumb)
+      - if !@question.accepted? && @question.owner?(current_user)
+        = link_to 'Accept', question_answer_accept_path(@question, answer),
+        method: :post, data: { confirm: 'Are you sure?' }
+      - if answer.accepted?
+        | Accepted
+    .answer__text.col-xs-12.col-sm-7
+      == markdown.render(answer.contents)
+    .answer__votes.col-xs-12.col-sm-3
+      .answer__votes__vote--upvote
+        = link_to question_answer_upvote_path(@question, answer),
+        method: :post, class: 'answer__votes__vote__link' do
+          i.glyphicon.glyphicon-thumbs-up
+        .answer__votes__vote__count--upvote
+          = answer.get_upvotes.size
+      .answer__votes__vote--downvote
+        = link_to question_answer_downvote_path(@question, answer),
+        method: :post, class: 'answer__votes__vote__link' do
+          i.glyphicon.glyphicon-thumbs-down
+        .answer__votes__vote__count--downvote
+          = answer.get_downvotes.size

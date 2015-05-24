@@ -2,8 +2,6 @@
   .col-xs-12.col-md-8
     = render @question
     .answers.panel.panel-default
-      = render @question.answers
-    - if @question.accepted?
-      p This questions is already accepted.
-    -else
-      = render 'answers/form'
+      .panel-body
+        = render @question.answers
+        = render 'answers/form'

@@ -1,9 +1,12 @@
 .panel.panel-default
   .panel-body
-    h3 = link_to(question.title, question_path(question))
-    - unless defined?(show_content) && show_content == false
+    - unless defined?(multi) && multi
+      h3
+        = question.title
       div
         == markdown.render(question.contents)
+    - else
+      h3 = link_to(question.title, question_path(question))
     div
       span.label.label-primary
         i.glyphicon.glyphicon-time

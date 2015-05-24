@@ -1,4 +1,4 @@
 .questions-container.row
   - @questions.each do |question|
     article.question.col-xs-12.col-sm-3
-      == render question, show_content: false
+      == render question, multi: true
