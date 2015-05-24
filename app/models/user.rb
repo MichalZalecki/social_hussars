@@ -78,18 +78,18 @@ class User < ActiveRecord::Base
     self.points >= POINTS_TO_BE_A_SUPERSTAR
   end
 
-  private
-
-  def points_for_start
-    self.points ||= POINTS_FOR_START
-  end
-
   def self.unique_username(username)
     unique = username
     while User.unscoped.exists?(username: unique) do
       unique = username + '-' + rand(36**8).to_s(36)
     end
     unique
+  end
+
+  private
+
+  def points_for_start
+    self.points ||= POINTS_FOR_START
   end
 
 end
