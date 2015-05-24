@@ -5,4 +5,3 @@ Inspired by this {challenge application}[https://github.com/hussar-academy/chall
 === Doubts
 
 * AnswersController#upvote and AnswersController#downvote look at least NOT very DRY.
-* GitHub signing in is heavily customized be me to always pass validation. It seems to work quite well though.

@@ -23,17 +23,10 @@ class User < ActiveRecord::Base
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
-      # when user which is already redistered has the same
-      # username as github nickname of new user
-      github_username = unique_username(auth.info.nickname)
-
-      # it's possible email wont be passed (depends on privacy settings)
-      github_email = auth.info.email.nil? ? "#{auth.info.nickname}@users.noreply.github.com" : auth.info.email
-
-      user.username = github_username
+      user.username = auth.info.nickname
       user.provider = auth.provider
-      user.uid = auth.uid
-      user.email = github_email
+      user.uid = auth.uidof new user
+      user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
     end
   end
@@ -76,14 +69,6 @@ class User < ActiveRecord::Base
 
   def superstar?
     self.points >= POINTS_TO_BE_A_SUPERSTAR
-  end
-
-  def self.unique_username(username)
-    unique = username
-    while User.unscoped.exists?(username: unique) do
-      unique = username + '-' + rand(36**8).to_s(36)
-    end
-    unique
   end
 
   private

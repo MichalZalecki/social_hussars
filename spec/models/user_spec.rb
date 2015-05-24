@@ -152,24 +152,4 @@ RSpec.describe User, type: :model do
       end
     end
   end
-
-  describe '.unique_username' do
-
-    context 'when the username is unique' do
-
-      it 'returns the username' do
-        expect(User.unique_username(user.username)).to eq(user.username)
-      end
-    end
-
-    context 'when the username isn\'t unique' do
-
-      before(:each) { user.username = other_user.username }
-
-      it 'returns the username with unique token' do
-        expect(User.unique_username(user.username)).to match(user.username)
-        expect(User.unique_username(user.username)).not_to eq(user.username)
-      end
-    end
-  end
 end
