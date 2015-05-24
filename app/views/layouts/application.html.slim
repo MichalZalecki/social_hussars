@@ -5,6 +5,7 @@ html
     == stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     == javascript_include_tag 'application', 'data-turbolinks-track' => true
     == csrf_meta_tags
+    meta[name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"]
   body
     nav.navbar.navbar-default
       div.container-fluid
@@ -36,10 +37,11 @@ html
               = bootstrap_navbar_link_to('Sign up', new_user_registration_path)
               = bootstrap_navbar_link_to('Sign in', new_user_session_path)
 
-    div.container-fluid
-
-      - flash.each do |type, msg|
-        div[class=bootstrap_alert_classes_for(type)]
-          = msg
+    .container-fluid
+      .row
+        .col-xs-12
+          - flash.each do |type, msg|
+            div[class=bootstrap_alert_classes_for(type)]
+              = msg
 
       == yield

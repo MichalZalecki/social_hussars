@@ -1,7 +1,25 @@
 @import "bootstrap-sprockets";
+
+$navbar-border-radius: 0;
+
+@import "bootswatch/paper/variables";
 @import "bootstrap";
+@import "bootswatch/paper/bootswatch";
+
 @import "devise_bootstrap_views";
 
+body {
+  background-color: $brand-primary;
+}
+
+.navbar-nav > li > .dropdown-menu {
+  margin-top: 0;
+}
+
+@media (min-width: $screen-sm-min) {
+  .questions-container {
+    max-width: 101%; // magic number!
+  }
+}
 .question {
-  border-bottom: 1px solid #e7e7e7;
 }
