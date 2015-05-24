@@ -17,28 +17,40 @@ class AnswersController < ApplicationController
 
   def upvote
     if current_user == @answer.user
-      flash[:alert] = 'Voting on yourself is so lame! You cannot do this.'
+      @message = { type: :alert, content: 'Voting on yourself is so lame! You cannot do this.' }
     elsif current_user.voted_up_on? @answer
-      flash[:alert] = 'You have already upvoted this answer'
+      @message = { type: :alert, content: 'You have already upvoted this answer' }
     else
-      flash[:success] = 'You upvoted the answer'
+      @message = { type: :success, content: 'You upvoted the answer' }
       @answer.user.points_for_upvote(current_user, @answer)
       @answer.liked_by current_user
     end
-    redirect_to @question
+    respond_to do |format|
+      format.html do
+        flash[@message[:type]] = @message[:content]
+        redirect_to @question
+      end
+      format.json { render :vote }
+    end
   end
 
   def downvote
     if current_user == @answer.user
-      flash[:alert] = 'Voting on yourself is so lame! You cannot do this.'
+      @message = { type: :alert, content: 'Voting on yourself is so lame! You cannot do this.' }
     elsif current_user.voted_down_on? @answer
-      flash[:alert] = 'You have already downvoted this answer'
+      @message = { type: :alert, content: 'You have already downvoted this answer' }
     else
-      flash[:success] = 'You downvoted the answer'
+      @message = { type: :success, content: 'You downvoted the answer' }
       @answer.user.points_for_downvote(current_user, @answer)
       @answer.downvote_from current_user
     end
-    redirect_to @question
+    respond_to do |format|
+      format.html do
+        flash[@message[:type]] = @message[:content]
+        redirect_to @question
+      end
+      format.json { render :vote }
+    end
   end
 
   def accept

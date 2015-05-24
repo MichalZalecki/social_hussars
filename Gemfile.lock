@@ -315,7 +315,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.0.1)
   factory_girl_rails (~> 4.5.0)
   ffaker (~> 2.0.0)
-  jbuilder (~> 2.0)
+  jbuilder
   jquery-rails
   omniauth
   omniauth-github
