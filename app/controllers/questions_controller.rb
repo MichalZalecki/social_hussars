@@ -4,6 +4,8 @@ class QuestionsController < ApplicationController
   before_action :authenticate_owner!, except: [:index, :show, :new, :create]
   before_action :check_points!, except: [:index, :show, :edit, :update]
 
+  layout :questions_layout
+
   def index
     @questions = Question.order('created_at DESC')
   end
@@ -55,5 +57,11 @@ class QuestionsController < ApplicationController
     unless current_user.able_to_ask_question?
       redirect_to root_path, alert: 'You don\'t have enougth points to ask the question'
     end
+  end
+
+  private
+
+  def questions_layout
+    action_name == 'index' ? 'container-fluid' : 'container'
   end
 end
