@@ -3,3 +3,12 @@ pl:
     ago: temu
     accepted: Zaakceptowana
     edit: Edytuj
+    navbar:
+      leaderboard: Tablica wyników
+      ask_question: Zadaj pytanie
+      log_out: Wyloguj się
+      edit_profile: Edytuj profil
+      change_language: Zmień język
+    langs:
+      polish: Polski
+      english: Angielski

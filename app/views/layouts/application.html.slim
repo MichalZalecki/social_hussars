@@ -20,9 +20,9 @@ html
         div#navbar.collapse.navbar-collapse
 
           ul.nav.navbar-nav
-            = bootstrap_navbar_link_to('Leaderboard', page_leaderboard_path)
+            = bootstrap_navbar_link_to(t('views.navbar.leaderboard'), page_leaderboard_path)
             - if user_signed_in?
-              = bootstrap_navbar_link_to('Ask question', new_question_path)
+              = bootstrap_navbar_link_to(t('views.navbar.ask_question'), new_question_path)
 
           ul.nav.navbar-nav.navbar-right
             - if user_signed_in?
@@ -31,8 +31,15 @@ html
                   = current_user
                   span.caret
                 ul.dropdown-menu[role="menu"]
-                  = bootstrap_navbar_link_to('Log out', destroy_user_session_path, method: :delete, data: {confirm: 'Are you sure?'})
-                  = bootstrap_navbar_link_to('Edit profile', edit_user_registration_path)
+                  = bootstrap_navbar_link_to(t('views.navbar.log_out'), destroy_user_session_path, method: :delete, data: {confirm: 'Are you sure?'})
+                  = bootstrap_navbar_link_to(t('views.navbar.edit_profile'), edit_user_registration_path)
+                  li.divider
+                  li.dropdown-header
+                    = t('views.navbar.change_language')
+                  - if I18n.locale == I18n.default_locale
+                    = bootstrap_navbar_link_to t('views.langs.polish'), locale: :pl
+                  - else
+                    = bootstrap_navbar_link_to t('views.langs.english'), locale: :en
             - else
               = bootstrap_navbar_link_to('Sign up', new_user_registration_path)
               = bootstrap_navbar_link_to('Sign in', new_user_session_path)
