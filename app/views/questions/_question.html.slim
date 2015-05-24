@@ -1,10 +1,30 @@
-article.question.panel.panel-default
-  div.panel-body
+.panel.panel-default
+  .panel-body
     h3 = link_to(question.title, question_path(question))
-    div == markdown.render(question.contents)
-    ul
-      li = distance_of_time_in_words_to_now(question.created_at)
+    - unless defined?(show_content) && show_content == false
+      div
+        == markdown.render(question.contents)
+    div
+      span.label.label-primary
+        i.glyphicon.glyphicon-time
+        '
+        = distance_of_time_in_words_to_now(question.created_at)
+        '
+        = t 'views.ago'
+      '
+      = link_to user_path(question.user), class: 'label label-info' do
+        i.glyphicon.glyphicon-user
+        '
+        = question.user
+      '
+      - if question.accepted?
+        span.label.label-success
+          i.glyphicon.glyphicon-ok
+          '
+          = t 'views.accepted'
+      '
       - if question.owner?(current_user)
-        li = link_to 'Edit', edit_question_path(question)
-      li = question.user
-
+        = link_to edit_question_path(question), class: 'label label-warning'
+          i.glyphicon.glyphicon-pencil
+          '
+          = t 'views.edit'

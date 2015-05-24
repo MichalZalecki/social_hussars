@@ -1,6 +1,6 @@
-div.answer
-  div.answer__content == markdown.render(answer.contents)
-  div.answer__meta
+.answer.panel-body
+  .answer__content == markdown.render(answer.contents)
+  .answer__meta
     = answer.user
     = image_tag answer.user.avatar.url(:thumb)
     = "(#{answer.get_upvotes.size} / #{answer.get_upvotes.size + answer.get_downvotes.size})"
@@ -9,18 +9,18 @@ div.answer
       method: :post, data: { confirm: 'Are you sure?' }
     - if answer.accepted?
       | Accepted
-  div.answer__votes
-    div.answer__votes__vote--upvote
+  .answer__votes
+    .answer__votes__vote--upvote
       = link_to question_answer_upvote_path(@question, answer),
       method: :post, class: 'answer__votes__vote__link' do
         i.glyphicon.glyphicon-thumbs-up
-      div.answer__votes__vote__count--upvote
+      .answer__votes__vote__count--upvote
         = answer.get_upvotes.size
-    div.answer__votes__vote--downvote
+    .answer__votes__vote--downvote
       = link_to question_answer_downvote_path(@question, answer),
       method: :post, class: 'answer__votes__vote__link' do
         i.glyphicon.glyphicon-thumbs-down
-      div.answer__votes__vote__count--downvote
+      .answer__votes__vote__count--downvote
         = answer.get_downvotes.size
 
 
