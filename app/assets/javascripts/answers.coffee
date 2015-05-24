@@ -2,10 +2,10 @@
 
 $(document).on 'page:change', ->
   $('.answer__votes__vote__link').on 'click', (e) ->
-    $.when($.ajax
+    $.when $.ajax
       method: this.dataset.method
       url: this.href + '.json'
-    ).then (data) =>
+    .then (data) =>
       votes = this.parentNode.parentNode
       votes.querySelector('.answer__votes__vote__count--upvote')
         .innerHTML = data.upvotes
@@ -14,6 +14,11 @@ $(document).on 'page:change', ->
 
       # TODO: Make it pretty
       alert(data.message.content)
+
+    , (data) ->
+      # TODO: Make it pretty
+      alert(data.responseJSON.error)
+
 
     # e.stopImmediatePropagation()
     # e.preventDefault()
