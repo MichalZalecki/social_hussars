@@ -39,8 +39,8 @@ group :development, :test do
 
   # testing
   gem 'capybara', '~> 2.4.4'
-  gem 'cucumber-rails', '~> 1.4.2', :require => false
-  gem 'database_cleaner', '~> 1.4.1'
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'poltergeist', '~> 1.6.0'
   gem 'rspec-rails', '~> 3.2.1'

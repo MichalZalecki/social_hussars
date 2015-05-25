@@ -59,7 +59,7 @@ GEM
     bootstrap-sass (3.3.4.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
-    bootswatch-rails (3.2.4)
+    bootswatch-rails (3.3.4)
       railties (>= 3.1)
     builder (3.2.2)
     byebug (5.0.0)
@@ -139,7 +139,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mime-types (2.5)
+    mime-types (2.6.1)
     mini_portile (0.6.2)
     minitest (5.6.1)
     mono_logger (1.1.0)
@@ -319,9 +319,9 @@ DEPENDENCIES
   byebug
   capybara (~> 2.4.4)
   coffee-rails (~> 4.1.0)
-  cucumber-rails (~> 1.4.2)
+  cucumber-rails
   data-confirm-modal!
-  database_cleaner (~> 1.4.1)
+  database_cleaner
   devise (~> 3.4.1)
   devise-bootstrap-views (~> 0.0.5)
   dotenv-rails (~> 2.0.1)
