@@ -3,7 +3,7 @@
     h1.username-header = @user.username
 .row
   .col-xs-12.col-md-9
-    == render @user.questions
+    == render @user.questions, multi: true
 
   .col-xs-12.col-md-3
     .panel.panel-default
