@@ -38,7 +38,7 @@ pl:
         other: Użytkownicy
     attributes:
         answer:
-          contents: Treść(markdown)
+          contents: Treść (markdown)
         question:
           title: Tytuł
           contents: Treść (markdown)
