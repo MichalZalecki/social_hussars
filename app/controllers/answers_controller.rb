@@ -10,7 +10,7 @@ class AnswersController < ApplicationController
     @answer.user = current_user
     if @answer.save
       UserMailer.question_answered(@answer).deliver_later
-      redirect_to question_path(params[:question_id]), notice: 'Answer was created'
+      redirect_to question_path(params[:question_id]), notice: I18n.t('controllers.answers.created')
     else
       render 'questions/show'
     end
@@ -18,11 +18,11 @@ class AnswersController < ApplicationController
 
   def upvote
     if current_user == @answer.user
-      @message = { type: :alert, content: 'Voting on yourself is so lame! You cannot do this.' }
+      @message = { type: :alert, content: I18n.t('controllers.answers.voting_on_yourself') }
     elsif current_user.voted_up_on? @answer
-      @message = { type: :alert, content: 'You have already upvoted this answer' }
+      @message = { type: :alert, content: I18n.t('controllers.answers.already_upvoted') }
     else
-      @message = { type: :success, content: 'You upvoted the answer' }
+      @message = { type: :success, content: I18n.t('controllers.answers.upvoted') }
       @answer.user.points_for_upvote(current_user, @answer)
       @answer.liked_by current_user
     end
@@ -37,11 +37,11 @@ class AnswersController < ApplicationController
 
   def downvote
     if current_user == @answer.user
-      @message = { type: :alert, content: 'Voting on yourself is so lame! You cannot do this.' }
+      @message = { type: :alert, content: I18n.t('controllers.answers.voting_on_yourself') }
     elsif current_user.voted_down_on? @answer
-      @message = { type: :alert, content: 'You have already downvoted this answer' }
+      @message = { type: :alert, content: I18n.t('controllers.answers.already_downvoted') }
     else
-      @message = { type: :success, content: 'You downvoted the answer' }
+      @message = { type: :success, content: I18n.t('controllers.answers.downvoted') }
       @answer.user.points_for_downvote(current_user, @answer)
       @answer.downvote_from current_user
     end
@@ -57,16 +57,16 @@ class AnswersController < ApplicationController
   def accept
     catch(:done) do
       if @question.accepted?
-        flash[:alert] = 'This question is already accepted'
+        flash[:alert] = I18n.t('controllers.answers.already_accepted')
         throw(:done)
       elsif current_user != @question.user
-        flash[:alert] = 'Only the question author can accept the question'
+        flash[:alert] = I18n.t('controllers.answers.only_author')
         throw :done
       elsif current_user == @answer.user
-        flash[:alert] = 'Accepting yours answer is so lame! You cannot do this.'
+        flash[:alert] = I18n.t('controllers.answers.accept_your')
         throw :done
       else
-        flash[:success] = 'You have accepted the answer'
+        flash[:success] = I18n.t('controllers.answers.accepted')
         @answer.accept
         UserMailer.answer_accepted(@answer).deliver_later
         throw :done
@@ -91,7 +91,7 @@ class AnswersController < ApplicationController
 
   def check_accepted!
     if @question.accepted?
-      redirect_to @question, alert: 'Question is already accepted'
+      redirect_to @question, alert: I18n.t('controllers.answers.already_accepted')
     end
   end
 end

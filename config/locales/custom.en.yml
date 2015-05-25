@@ -34,4 +34,19 @@ en:
         answer:
           one: Answer
           other: Answers
-
+  controllers:
+    answers:
+      created: Answer created
+      voting_on_yourself: Voting on yourself is so lame! You cannot do this.
+      already_upvoted: You have already upvoted this answer
+      upvoted: You upvoted the answer
+      already_downvoted: You have already downvoted this answer
+      downvoted: You downvoted the answer
+      already_accepted: This question is already accepted
+      only_author: Only the question author can accept the question
+      accept_your: Accepting yours answer is so lame! You cannot do this.
+      accepted: You have accepted the answer
+    questions:
+      created: Question created
+      updated: Question updated
+      not_enough_points: You don't have enough points to ask the question

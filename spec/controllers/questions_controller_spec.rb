@@ -69,7 +69,7 @@ describe QuestionsController do
           get :new
         end
 
-        it { should set_flash[:alert].to('You don\'t have enougth points to ask the question') }
+        it { should set_flash[:alert].to('You don\'t have enough points to ask the question') }
         it { should redirect_to root_path }
       end
     end
@@ -103,7 +103,7 @@ describe QuestionsController do
               expect(Question.count).to eq(1)
             end
 
-            it { should set_flash[:success].to('Question was created') }
+            it { should set_flash[:success].to('Question created') }
             it { should redirect_to question_path(Question.first) }
           end
 
@@ -120,7 +120,7 @@ describe QuestionsController do
               expect(Question.count).to eq(0)
             end
 
-            it { should set_flash[:alert].to('You don\'t have enougth points to ask the question') }
+            it { should set_flash[:alert].to('You don\'t have enough points to ask the question') }
             it { should redirect_to root_path }
           end
         end

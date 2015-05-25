@@ -52,3 +52,19 @@ pl:
           password_confirmation: Powtórz hasło
           current_password: Obecne hasło
           avatar: Awatar
+  controllers:
+    answers:
+      created: Dodano odpowiedź
+      voting_on_yourself: Nie można głosować na samego siebie!
+      already_upvoted: Już głosowałeś za tą odpowiedzą
+      upvoted: Zagłosowaleś za odpowiedzią
+      already_downvoted: Już głosowałeś przeciwko tej odpowiedzi
+      downvoted: Zagłosowaleś przeciwko odpowiedzi
+      already_accepted: To pytanie jest już ma odpowiedź
+      only_author: Tylko autor pytania może akceptować odpowiedzi
+      accept_your: Nie można akceptować swoich własnych odpowiedzi!
+      accepted: Zaakceptowałeś odpowiedź
+    questions:
+      created: Pytanie utworzone
+      updated: Pytanie zaktualizowane
+      not_enough_points: Nie masz wystarczająco punktów by zadać pytanie

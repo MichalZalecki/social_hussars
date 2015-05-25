@@ -22,7 +22,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     @question.user = current_user
     if @question.save
-      redirect_to @question, flash: { success: 'Question was created' }
+      redirect_to @question, flash: { success: I18n.t('controllers.questions.created') }
     else
       render :new
     end
@@ -33,7 +33,7 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update(question_params)
-      redirect_to @question, flash: { success: 'Question updated' }
+      redirect_to @question, flash: { success: I18n.t('controllers.questions.updated') }
     else
       render :edit
     end
@@ -55,7 +55,7 @@ class QuestionsController < ApplicationController
 
   def check_points!
     unless current_user.able_to_ask_question?
-      redirect_to root_path, alert: 'You don\'t have enougth points to ask the question'
+      redirect_to root_path, alert: I18n.t('controllers.questions.not_enough_points')
     end
   end
 
