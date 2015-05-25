@@ -15,6 +15,10 @@ pl:
     unhappy: Niezadowolony
     edit_profile: Edytuj profil
     remember_me: Zapamiętaj mnie
+    for_sure: Na pewno chcesz to zrobić?
+    confirm: Potwierdź
+    commit: Tak
+    cancel: Nie
     login:
       github: 'GitHub'
     navbar:

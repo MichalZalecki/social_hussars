@@ -1,6 +1,7 @@
 'use strict'
 
 $(document).on 'page:change', ->
+  modal = $('.answer-modal');
   $('.answer__votes__vote__link').on 'click', (e) ->
     $.when $.ajax
       method: this.dataset.method
@@ -12,12 +13,13 @@ $(document).on 'page:change', ->
       votes.querySelector('.answer__votes__vote__count--downvote')
         .innerHTML = data.downvotes
 
-      # TODO: Make it pretty
-      alert(data.message.content)
+      unless data.message.type == 'success'
+        modal.find('p').html(data.message.content)
+        modal.modal()
 
     , (data) ->
-      # TODO: Make it pretty
-      alert(data.responseJSON.error)
+      modal.find('p').html(data.responseJSON.error)
+      modal.modal()
 
 
     # e.stopImmediatePropagation()

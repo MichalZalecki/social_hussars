@@ -31,7 +31,8 @@ html
                   = current_user
                   span.caret
                 ul.dropdown-menu[role="menu"]
-                  = bootstrap_navbar_link_to(t('views.navbar.log_out'), destroy_user_session_path, method: :delete, data: {confirm: 'Are you sure?'})
+                  = bootstrap_navbar_link_to(t('views.navbar.log_out'), destroy_user_session_path, method: :delete,
+                  title: t('views.confirm'), data: { confirm: t('views.for_sure'), commit: t('views.commit'), cancel: t('views.cancel') })
                   = bootstrap_navbar_link_to(t('views.edit_profile'), edit_user_registration_path)
                   = bootstrap_navbar_link_to(t('views.navbar.show_profile'), user_path(current_user))
                   li.divider

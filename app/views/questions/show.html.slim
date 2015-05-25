@@ -6,3 +6,11 @@
         = render @question.answers
         - unless @question.accepted?
           = render 'answers/form'
+
+    .modal.fade.answer-modal
+      .modal-dialog
+        .modal-content
+          .modal-body
+            button.close[type="button" data-dismiss="modal"]
+              span &times;
+            p

@@ -12,6 +12,7 @@ gem 'resque'
 gem 'resque-scheduler'
 gem 'omniauth'
 gem 'omniauth-github'
+gem 'data-confirm-modal', github: 'ifad/data-confirm-modal'
 
 # frontend
 gem 'sass-rails', '~> 5.0'

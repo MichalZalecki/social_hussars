@@ -21,8 +21,9 @@
       - if !@question.accepted? && @question.owner?(current_user)
         '
         = link_to question_answer_accept_path(@question, answer),
-        method: :post, data: { confirm: 'Are you sure?' },
-        class: ' label label-success' do
+        method: :post, title: t('views.confirm'),
+        data: { confirm: t('views.for_sure'), commit: t('views.commit'),
+        cancel: t('views.cancel') }, class: ' label label-success' do
           i.glyphicon.glyphicon-ok
           '
           = t 'views.accept'
