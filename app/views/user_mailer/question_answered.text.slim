@@ -1,3 +1,2 @@
-UserMailer#question_answered
-
-= @greeting + ", find me in app/views/user_mailer/question_answered.text.slim"
+= "#{@answer.user.username} added an answer to your question:\r\n"
+= "#{@answer.question.title} (#{question_url(id: @answer.question.id, locale: :en)})"

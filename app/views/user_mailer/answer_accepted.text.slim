@@ -1,3 +1,3 @@
-UserMailer#answer_accepted
+= "#{@answer.question.user.username} accepted your answer to question:\r\n"
+= "#{@answer.question.title} (#{question_url(id: @answer.question.id, locale: :en)})"
 
-= @greeting + ", find me in app/views/user_mailer/answer_accepted.text.slim"
