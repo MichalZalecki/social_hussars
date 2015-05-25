@@ -8,18 +8,36 @@ $navbar-border-radius: 0;
 
 @import "devise_bootstrap_views";
 
-img {
-  max-width: 100%;
-  height: auto;
-}
+// ==============================
+// Common
+// ==============================
+
 
 body {
   background-color: $brand-primary;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.label {
+  font-size: 10px;
+}
+
 .navbar-nav > li > .dropdown-menu {
   margin-top: 0;
 }
+
+textarea {
+  min-height: 240px;
+  resize: vertical;
+}
+
+// ==============================
+// Question
+// ==============================
 
 @media (min-width: $screen-sm-min) {
   .questions-container {
@@ -27,17 +45,110 @@ body {
   }
 }
 
+// ==============================
+// Answer
+// ==============================
+
 .answer {
   border-bottom: 1px solid $panel-default-border;
+  &:last-child {
+    border-bottom: 0;
+  }
 }
 
 .answer_content {
   @media (min-width: $screen-sm-min) {
     display: flex;
+    margin-bottom: 20px;
   }
+}
+
+.answer-user {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .answer__text {
   border-left: 1px solid $gray-lighter;
   border-right: 1px solid $gray-lighter;
+}
+
+.answer__votes__vote--upvote,
+.answer__votes__vote--downvote {
+  text-align: center;
+  float: left;
+  margin-bottom: 10px;
+  @media (min-width: $screen-sm-min) {
+    width: 50%;
+    margin-bottom: 0;
+  }
+}
+
+.answer__votes__vote__link--upvote,
+.answer__votes__vote__link--downvote {
+  @media (min-width: $screen-sm-min) {
+    font-size: 22px;
+  }
+}
+
+.answer__votes__vote__link--upvote {
+  color: $brand-success;
+  &:hover,
+  &:active,
+  &:focus {
+    color: darken($brand-success, 10%);
+  }
+}
+
+.answer__votes__vote__link--downvote {
+  color: $brand-danger;
+  &:hover,
+  &:active,
+  &:focus {
+    color: darken($brand-danger, 10%);
+  }
+}
+
+.answer__votes__vote__link,
+.answer__votes__vote__count--upvote,
+.answer__votes__vote__count--downvote {
+  display: inline-block;
+  padding-right: 10px;
+  @media (min-width: $screen-sm-min) {
+    display:  block;
+    padding-right: 0;
+  }
+}
+
+.create_answer {
+  margin-top: 20px;
+}
+
+// ==============================
+// User
+// ==============================
+
+.username-header {
+  color: white;
+}
+
+.user-meta {
+  list-style: none;
+  padding: 0;
+}
+
+// ==============================
+// Devise
+// ==============================
+
+$github-color: #7F7F7F;
+.btn-github {
+  background-color: $github-color;
+  &:hover,
+  &:focus {
+    background-color: darken($github-color, 10%);
+  }
+  &:active {
+    background-color: darken($github-color, 15%);
+  }
 }

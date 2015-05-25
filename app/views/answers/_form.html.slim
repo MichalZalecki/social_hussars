@@ -1,4 +1,5 @@
-= simple_form_for @answer, url: question_answers_path(@question) do |f|
-  = f.error_notification
-  = f.input :contents
-  = f.button :submit
+.create_answer
+  = simple_form_for @answer, url: question_answers_path(@question) do |f|
+    = f.error_notification
+    = f.input :contents
+    = f.button :submit, class: 'btn-success'

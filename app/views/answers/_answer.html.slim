@@ -1,27 +1,48 @@
-.answer.panel-body
-  .row
-    .col-xs-12
-      = answer.user
-  .answer_content.row
-    .answer__meta.col-xs-12.col-sm-2
-      = image_tag answer.user.avatar.url(:thumb)
-      - if !@question.accepted? && @question.owner?(current_user)
-        = link_to 'Accept', question_answer_accept_path(@question, answer),
-        method: :post, data: { confirm: 'Are you sure?' }
+.answer
+  .answer-user.row
+    .col-xs-12.col-sm-12
+      span.label.label-primary
+        i.glyphicon.glyphicon-time
+        '
+        = distance_of_time_in_words_to_now(answer.created_at)
+        '
+        = t 'views.ago'
+      '
+      = link_to user_path(answer.user), class: 'label label-info' do
+        i.glyphicon.glyphicon-user
+        '
+        = answer.user
       - if answer.accepted?
-        | Accepted
+        '
+        span.label.label-success
+          i.glyphicon.glyphicon-ok
+          '
+          = t 'views.accepted'
+      - if !@question.accepted? && @question.owner?(current_user)
+        '
+        = link_to question_answer_accept_path(@question, answer),
+        method: :post, data: { confirm: 'Are you sure?' },
+        class: ' label label-success' do
+          i.glyphicon.glyphicon-ok
+          '
+          = t 'views.accept'
+
+  .answer_content.row
+    .answer__avatar.col-xs-12.col-sm-2.hidden-xs
+      .thumbnail
+        = image_tag answer.user.avatar.url(:thumb)
     .answer__text.col-xs-12.col-sm-7
       == markdown.render(answer.contents)
     .answer__votes.col-xs-12.col-sm-3
       .answer__votes__vote--upvote
-        = link_to question_answer_upvote_path(@question, answer),
-        method: :post, class: 'answer__votes__vote__link' do
+        = link_to question_answer_upvote_path(@question, answer), method: :post,
+        class: 'answer__votes__vote__link answer__votes__vote__link--upvote' do
           i.glyphicon.glyphicon-thumbs-up
         .answer__votes__vote__count--upvote
           = answer.get_upvotes.size
       .answer__votes__vote--downvote
-        = link_to question_answer_downvote_path(@question, answer),
-        method: :post, class: 'answer__votes__vote__link' do
+        = link_to question_answer_downvote_path(@question, answer), method: :post,
+        class: 'answer__votes__vote__link answer__votes__vote__link--downvote' do
           i.glyphicon.glyphicon-thumbs-down
         .answer__votes__vote__count--downvote
           = answer.get_downvotes.size

@@ -2,6 +2,7 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_answer, only: [:upvote, :downvote, :accept]
   before_action :find_question
+  before_action :check_accepted!, only: [:create]
 
   def create
     @answer = Answer.new(answer_params)
@@ -88,4 +89,9 @@ class AnswersController < ApplicationController
     @question = Question.find(params[:question_id])
   end
 
+  def check_accepted!
+    if @question.accepted?
+      redirect_to @question, alert: 'Question is already accepted'
+    end
+  end
 end

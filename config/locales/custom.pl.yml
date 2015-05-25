@@ -1,0 +1,50 @@
+pl:
+  views:
+    ago: temu
+    accepted: Zaakceptowana
+    accept: Akceptuj
+    edit: Edytuj
+    new_question: Zadaj pytanie
+    edit_question: Edytuj pytanie
+    leaderboard: Tablica wyników
+    points: punkty
+    answers: odpowiedzi
+    questions: pytania
+    sign_up: Zarejestruj się
+    sign_in: Zaloguj się
+    unhappy: Niezadowolony
+    edit_profile: Edytuj profil
+    remember_me: Zapamiętaj mnie
+    login:
+      github: 'GitHub'
+    navbar:
+      ask_question: Zadaj pytanie
+      log_out: Wyloguj się
+      show_profile: Pokaż profil
+      change_language: Język śródmordzia
+    langs:
+      polish: Polski
+      english: Angielski
+  activerecord:
+    models:
+      answer:
+        one: Odpowiedź
+        other: Odpowiedzi
+      question:
+        one: Pytanie
+        other: Pytania
+      user:
+        one: Użytkownik
+        other: Użytkownicy
+    attributes:
+        answer:
+          contents: Treść(markdown)
+        question:
+          title: Tytuł
+          contents: Treść (markdown)
+        user:
+          username: Nazwa użytkownika
+          password: Hasło
+          password_confirmation: Powtórz hasło
+          current_password: Obecne hasło
+          avatar: Awatar

@@ -7,7 +7,6 @@ Rails.application.routes.draw do
              controllers: { omniauth_callbacks: 'callbacks' }
 
   scope "(:locale)", locale: /en|pl/ do
-    get 'page/home'
     get 'page/leaderboard'
     resources :questions, except: :destroy do
       resources :answers, only: [:create] do

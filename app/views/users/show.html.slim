@@ -1,4 +1,38 @@
-h1 = @user
-= image_tag @user.avatar.url(:thumb)
-- if @user.superstar?
-  | Superstar!
+.row
+  .col-xs-12
+    h1.username-header = @user.username
+.row
+  .col-xs-12.col-md-9
+    == render @user.questions
+
+  .col-xs-12.col-md-3
+    .panel.panel-default
+      .panel-body
+        .thumbnail
+          = image_tag @user.avatar.url(:medium)
+        ul.user-meta
+          li
+            strong
+              = t 'views.points'
+              | :
+            '
+            = @user.points
+            - if @user.superstar?
+              '
+              span.label.label-warning
+                i.glyphicon.glyphicon-star
+                | Superstar
+          li
+            strong
+              = t 'views.questions'
+              | :
+            '
+            = @user.questions.count
+          li
+            strong
+              = t 'views.answers'
+              | :
+            '
+            = @user.answers.count
+
+

@@ -1,0 +1,33 @@
+en:
+  views:
+    ago: ago
+    accepted: Accepted
+    accept: Accept
+    edit: Edit
+    new_question: Ask! Don't be shy
+    edit_question: Edit question
+    leaderboard: Leaderboard
+    points: points
+    answers: answers
+    questions: questions
+    sign_up: Sign up
+    sign_in: Sign in
+    unhappy: Unhappy
+    edit_profile: Edit profile
+    remember_me: Remember me
+    login:
+      github: 'GitHub'
+    navbar:
+      ask_question: Ask question
+      log_out: Log out
+      show_profile: Show profile
+      change_language: Interface language
+    langs:
+      polish: Polish
+      english: English
+    activerecord:
+      models:
+        answer:
+          one: Answer
+          other: Answers
+

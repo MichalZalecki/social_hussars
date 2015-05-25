@@ -4,4 +4,5 @@
     .answers.panel.panel-default
       .panel-body
         = render @question.answers
-        = render 'answers/form'
+        - unless @question.accepted?
+          = render 'answers/form'

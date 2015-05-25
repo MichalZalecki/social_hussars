@@ -25,9 +25,12 @@
           i.glyphicon.glyphicon-ok
           '
           = t 'views.accepted'
-      '
       - if question.owner?(current_user)
+        '
         = link_to edit_question_path(question), class: 'label label-warning'
           i.glyphicon.glyphicon-pencil
           '
           = t 'views.edit'
+      '
+      span.label.label-primary
+        = "#{question.answers.count} #{Answer.model_name.human(count: question.answers.count)}"
