@@ -317,7 +317,7 @@ DEPENDENCIES
   bootstrap-sass
   bootswatch-rails
   byebug
-  capybara (~> 2.4.4)
+  capybara
   coffee-rails (~> 4.1.0)
   cucumber-rails
   data-confirm-modal!

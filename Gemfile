@@ -38,7 +38,7 @@ gem 'ffaker', '~> 2.0.0'
 group :development, :test do
 
   # testing
-  gem 'capybara', '~> 2.4.4'
+  gem 'capybara'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'factory_girl_rails', '~> 4.5.0'
