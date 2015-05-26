@@ -7,7 +7,7 @@ Inspired by {Monterail}[http://monterail.com/] {challenge application}[https://g
 There is coupe additional features which weren't mentioned in the challenge
 app requirements:
 
-* I18n (with saving locale in session in case longing in through OmniAuth)
+* I18n (with saving locale in session in case logging in through OmniAuth)
 * Uploading images to AWS S3
 * Sending emails through SendGrid (in the background as it was mensioned using Resque)
 * App is running on Heroku: https://social-hussars.herokuapp.com
