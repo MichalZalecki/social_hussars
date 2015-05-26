@@ -1,6 +1,6 @@
 == SocialHussars
 
-Inspired by {Monterail}(http://monterail.com/) {challenge application}[https://github.com/hussar-academy/challenge_app].
+Inspired by {Monterail}[http://monterail.com/] {challenge application}[https://github.com/hussar-academy/challenge_app].
 
 === Additional Features
 
