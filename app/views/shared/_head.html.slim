@@ -25,23 +25,21 @@ html
               = bootstrap_navbar_link_to(t('views.navbar.ask_question'), new_question_path)
 
           ul.nav.navbar-nav.navbar-right
+            - if I18n.locale == I18n.default_locale
+              = bootstrap_navbar_link_to t('views.langs.polish'), locale: :pl
+            - else
+              = bootstrap_navbar_link_to t('views.langs.english'), locale: :en
             - if user_signed_in?
               li.dropdown
                 a[class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false"]
                   = current_user
                   span.caret
                 ul.dropdown-menu[role="menu"]
-                  = bootstrap_navbar_link_to(t('views.navbar.log_out'), destroy_user_session_path, method: :delete,
-                  title: t('views.confirm'), data: { confirm: t('views.for_sure'), commit: t('views.commit'), cancel: t('views.cancel') })
                   = bootstrap_navbar_link_to(t('views.edit_profile'), edit_user_registration_path)
                   = bootstrap_navbar_link_to(t('views.navbar.show_profile'), user_path(current_user))
                   li.divider
-                  li.dropdown-header
-                    = t('views.navbar.change_language')
-                  - if I18n.locale == I18n.default_locale
-                    = bootstrap_navbar_link_to t('views.langs.polish'), locale: :pl
-                  - else
-                    = bootstrap_navbar_link_to t('views.langs.english'), locale: :en
+                  = bootstrap_navbar_link_to(t('views.navbar.log_out'), destroy_user_session_path, method: :delete,
+                  title: t('views.confirm'), data: { confirm: t('views.for_sure'), commit: t('views.commit'), cancel: t('views.cancel') })
             - else
               = bootstrap_navbar_link_to(t('views.sign_up'), new_user_registration_path)
               = bootstrap_navbar_link_to(t('views.sign_in'), new_user_session_path)

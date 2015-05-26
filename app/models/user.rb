@@ -7,10 +7,12 @@ class User < ActiveRecord::Base
 
   has_many :questions
   has_many :answers
-  has_attached_file :avatar, styles: { medium: '300x300#', thumb: '100x100#' }, default_url: '/images/blank.jpg'
+  has_attached_file :avatar, styles: { medium: '300x300#', thumb: '100x100#' },
+    default_url: '/images/blank.jpg'
 
   validates :username, presence: true, uniqueness: true
-  validates_attachment_content_type :avatar, content_type: /^image\/(png|gif|jpeg|jpg)/
+  validates_attachment_content_type :avatar,
+    content_type: /^image\/(png|gif|jpeg|jpg)/
   validates_attachment_size :avatar, less_than: 1.megabyte
 
   before_validation :points_for_start

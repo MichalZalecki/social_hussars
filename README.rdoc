@@ -1,7 +1,39 @@
 == SocialHussars
 
-Inspired by this {challenge application}[https://github.com/hussar-academy/challenge_app].
+Inspired by {Monterail}(http://monterail.com/) {challenge application}[https://github.com/hussar-academy/challenge_app].
 
-=== Doubts
+=== Additional Features
 
-* AnswersController#upvote and AnswersController#downvote look at least NOT very DRY.
+There is coupe additional features which weren't mentioned in the challenge
+app requirements:
+
+* I18n (with saving locale in session in case longing in through OmniAuth)
+* Uploading images to AWS S3
+* Sending emails through SendGrid (in the background as it was mensioned using Resque)
+* App is running on Heroku: https://social-hussars.herokuapp.com/
+
+=== Setting up
+
+In order to set up an app you have to provide **.env** file to keep your
+environment variables.
+
+Required variables:
+* S3_BUCKET_NAME
+* S3_HOST_NAME
+* AWS_ACCESS_KEY_ID
+* AWS_SECRET_ACCESS_KEY
+* OMNIAUTH_GITHUB_ID
+* OMNIAUTH_GITHUB_SECRET
+
+Optional variables:
+* REDISCLOUD_URL (you need redis-server installed localy)
+
+Development-only variables:
+* GMAIL_USER
+* GMAIL_PASS
+
+=== TODOs
+
+* Save question/answer or user locale in order to send email to the author
+  in his language (now English only)
+* Write more integration tests with Cucumber

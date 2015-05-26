@@ -29,11 +29,11 @@ en:
     langs:
       polish: Polish
       english: English
-    activerecord:
-      models:
-        answer:
-          one: Answer
-          other: Answers
+  activerecord:
+    models:
+      answer:
+        one: Answer
+        other: Answers
   controllers:
     answers:
       created: Answer created
