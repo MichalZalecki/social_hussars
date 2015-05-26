@@ -44,6 +44,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     acts_as_votable (0.10.0)
+    addressable (2.3.8)
     arel (6.0.0)
     autoprefixer-rails (5.1.11)
       execjs
@@ -134,6 +135,8 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.2)
     jwt (1.5.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     libv8 (3.16.14.7)
     loofah (2.0.2)
       nokogiri (>= 1.5.9)
@@ -325,23 +328,24 @@ DEPENDENCIES
   devise (~> 3.4.1)
   devise-bootstrap-views (~> 0.0.5)
   dotenv-rails (~> 2.0.1)
-  factory_girl_rails (~> 4.5.0)
+  factory_girl_rails
   ffaker (~> 2.0.0)
   jbuilder
   jquery-rails
+  launchy
   omniauth
   omniauth-github
   paperclip
   pg
-  poltergeist (~> 1.6.0)
+  poltergeist
   rails (= 4.2.1)
   redcarpet
   resque
   resque-scheduler
-  rspec-rails (~> 3.2.1)
+  rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
-  shoulda-matchers (~> 2.8.0)
+  shoulda-matchers
   simple_form
   slim-rails (~> 3.0.1)
   spring

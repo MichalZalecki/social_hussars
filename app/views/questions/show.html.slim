@@ -1,6 +1,7 @@
 .row
   .col-xs-12.col-md-8
-    = render @question
+    article.question
+      = render @question
     .answers.panel.panel-default
       .panel-body
         = render @question.answers
